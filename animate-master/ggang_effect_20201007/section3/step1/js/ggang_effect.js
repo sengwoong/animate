@@ -27,6 +27,7 @@ class BGEffect{
         //여러효과만들기
         this.transform_origin='';
         this.setStyle ='';
+        this.setStyleCustom =[];
         this.translateX = '';
         this.sclae = '';
         this.skew = '';
@@ -85,7 +86,7 @@ class BGEffect{
         ggangImgEffect2D(transform_origin,translateX,sclae,skew,rotate){
           let a =' ';
 
-          this.setStyle=`transform:translateX(`+translateX+`%) scale(`+sclae+`) skew(`+skew+`deg) rotate(`+rotate+`deg);`
+          this.setStyle=`transform-origin:`+transform_origin+`; transform:translateX(`+translateX+`%) scale(`+sclae+`) skew(`+skew+`deg) rotate(`+rotate+`deg);`
 
 
           for(let i=0;  i<this.rowB; i++){
@@ -98,7 +99,7 @@ class BGEffect{
                 var top = -i*100 + '%';
             
               
-              a += `<div class ="img_box" style="transform-origin:`+transform_origin+`; `+this.setStyle+` ;width:`+this.columnsWidth+`; height:`+this.rowHeight+'; transition-delay:'+ delaySpeed +'s; ">';
+              a += `<div class ="img_box" style="`+this.setStyle+` ;width:`+this.columnsWidth+`; height:`+this.rowHeight+'; transition-delay:'+ delaySpeed +'s; ">';
               a += '<div class="img_position" style="width:'+this.imgWidth+'; height:'+this.imgHeight +'; left:'+left+'; top:'+top+';"></div>';
               a += `</div>`
               // console.log('열:'+j);
@@ -127,14 +128,18 @@ class BGEffect{
         
         
         }
-        ggangImgEffect2DCustom(transform_origin,translateX,sclae,skew,rotate){
-          let a =' ';
 
-          this.setStyle=`transform:translateX(`+translateX+`%) scale(`+sclae+`) skew(`+skew+`deg) rotate(`+rotate+`deg);`
-          setStyle[0] = 'transform-origin:0% 50%; transform:scale(0.2) skew(40deg) rotate(20deg); transition-delay: 0.3s;';
-          setStyle[1] = 'transform-origin:0% 50%; transform:scale(0.2) skew(40deg) rotate(-20deg); transition-delay: 0.3s;';
-          setStyle[2] = 'transform-origin:100% 100%; transform:scale(0.2) skew(60deg) rotate(-40deg); transition-delay: 1.2s;';
-          setStyle[3] = 'transform-origin:0% 100%; transform:scale(0.2) skew(-60deg) rotate(40deg); transition-delay: 1.2s;';
+
+
+
+
+        ggangImgEffect2DCustom(transform_origin,translateX,sclae,skew,rotate,delay_speed){
+
+   
+          console.log(transform_origin[1])
+
+
+          let a =' ';
 
           for(let i=0;  i<this.rowB; i++){
 
@@ -144,11 +149,20 @@ class BGEffect{
               
                 var left = -j*100 + '%';
                 var top = -i*100 + '%';
-            
+                console.log(j)
+                this.setStyleCustom[j]=
+                `transform-origin:`+transform_origin[j]+
+                `; transform:translateX(`+translateX[j]+
+                `%) scale(`+sclae[j]+
+                `) skew(`+
+                skew[j]+`deg) rotate(`+
+                rotate[j]+`deg);`+`transition-delay:`
+                + delay_speed[j] +`s; `
+        
               
-              a += `<div class ="img_box" style="transform-origin:`+transform_origin+`; `+this.setStyle+` ;width:`+this.columnsWidth+`; height:`+this.rowHeight+';  ">';
-              a += '<div class="img_position" style="width:'+this.imgWidth+'; height:'+this.imgHeight +'; left:'+left+'; top:'+top+';"></div>';
-              a += `</div>`
+                a += `<div class ="img_box" style="`+this.setStyleCustom[j]+` ;width:`+this.columnsWidth+`; height:`+this.rowHeight+'; ">';
+                a += '<div class="img_position" style="width:'+this.imgWidth+'; height:'+this.imgHeight +'; left:'+left+'; top:'+top+';"></div>';
+                a += `</div>`
               // console.log('열:'+j);
             }
           }
@@ -175,6 +189,13 @@ class BGEffect{
         
         
         }
+
+
+
+
+
+
+
         ggangImgEffect3D(){
           let a =' ';
 
@@ -236,13 +257,59 @@ class BGEffect{
 console.log("makeclass");
 
 $(function(){
- // let BGEffet2 = new BGEffect(4,8,1,0,0.2,40,90);
-//  let BGEffet3= new BGEffect($('.ggang_effect2'),4,8,1,"center",0,0.2,40,90);
-//  BGEffet3.ggangImgEffect2D(); //프로그램 시작
+  // let BGEffet2 = new BGEffect(4,8,1,0,0.2,40,90);
+ //  let BGEffet3= new BGEffect($('.ggang_effect2'),4,8,1,"center",0,0.2,40,90);
+ //  BGEffet3.ggangImgEffect2D(); //프로그램 시작
+ 
+ 
+
+  
+ 
+  
+ //     a[0]="0% 50%,0,0.1,0,1,0.3"
+ //     a[1]="0% 50%,0,0.2,0,2,0.1"
+ //     a[2]="0% 50%,0,0.3,0,3,0.7"
+ //     a[3]="0% 50%,0,0.4,0,4,1.2"
+ 
+ console.log("-bbb1-------------");
+ const a1 = new Array(4).fill(`0% 50%`);
+ const   b1 = new Array(4).fill(0);
+ const c1 = [1,2,3,4];
+  const   d1 = new Array(4).fill(0);
+  const   e1 = new Array(4).fill(0);
+  const f1=[3,1,4,6];
+
+ //웬쪽 을 1번으로 하여 위아래 오른쪽으로 설정
 
 
-  let BGEffet2 = new BGEffect($('.ggang_effect'),4,8,1);
-  BGEffet2.ggangImgEffect2D("center",100,0,0,0);
+ // for(i=0;i<a.length;i++){
+ //   BGEffet2.ggangImgEffect2DCustom(a[i]);
+ 
+ // }
+ 
+ // BGEffet2.ggangImgEffect2DCustom("0% 50%,0,0.1,0,1,0.3".split(","));
+ // console.log("0% 50%,0,0.1,0,0,0,0.3".split(","));
+ 
+ 
+ let a = "center,0,0.1,0,0".split(",")
+ let b =''
+ // ggangImgEffect2DCustom(transform_origin,translateX,sclae,skew,rotate,delay_speed)
+  for(i=1;i<a.length;i++){
+  
+ b += (","+a[i]);
+ 
+  }
+ b = b.substring(1)
+ console.log("--------------");
+  console.log(b);
+  console.log(a[i]);
+  console.log("------------------")
+   let BGEffet2 = new BGEffect($('.ggang_effect'),4,4,1);
+  BGEffet2.ggangImgEffect2DCustom(a1,b1,c1,d1,e1,f1);
+
+  // let BGEffet3 = new BGEffect($('.ggang_effect'),2,2,1);
+  // BGEffet2.ggangImgEffect2DCustom(b);
+
 
  
 });
